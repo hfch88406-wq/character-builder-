@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101827">
 <title>NOOR Character Identity Studio</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 :root{--bg:#0b1220;--panel:#131f32;--panel2:#1a2940;--line:#2b3b55;--txt:#eef4ff;--muted:#aab8cc;--gold:#f4c76b;--blue:#75b8ff;--green:#72d6ad;--red:#ff8d8d}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172b46 0,#0b1220 55%);color:var(--txt);font-family:Tahoma,Arial,sans-serif;line-height:1.65}
@@ -35,12 +34,14 @@ button{border:0;border-radius:10px;padding:11px 15px;font:inherit;font-weight:bo
 .note{border-right:3px solid var(--green);padding:9px 12px;background:#123026;border-radius:8px;color:#d8ffed;font-size:13px}
 .progress{height:6px;background:#26364d;border-radius:9px;overflow:hidden;margin:12px 0}.progress i{display:block;height:100%;width:0;background:var(--gold);transition:width .2s}
 small{color:var(--muted)}
+.custom{margin-top:6px}.custom[hidden]{display:none}
+.mini{display:flex;gap:6px;margin:0 0 8px}.mini button{padding:4px 10px;font-size:12px;font-weight:normal;background:#1c2d46;color:#cfe2ff;border:1px solid #3b506d}
 </style>
 </head>
 <body>
 <header>
   <h1>NOOR · CHARACTER IDENTITY STUDIO</h1>
-  <p>استوديو تثبيت هوية الشخصية — إعداد مرجع واضح وجميل ومتناسق للاستخدام في مشاريع الذكاء الاصطناعي</p>
+  <p>استوديو تثبيت هوية الشخصية (تثبيت الشخصية والملامح والواقعية) — إعداد مرجع واضح وجميل ومتناسق للاستخدام في مشاريع الذكاء الاصطناعي</p>
 </header>
 <main>
   <section class="card">
@@ -55,7 +56,7 @@ small{color:var(--muted)}
       <div class="field"><label>اسم الشخصية</label><input id="name" placeholder="مثال: نور"></div>
       <div class="field"><label>العمر الظاهري</label><select id="age"><option>طفل صغير</option><option>طفل</option><option>يافع</option><option>شاب</option><option>بالغ</option><option>كبير في السن</option><option>غير محدد / خيالي</option></select></div>
       <div class="field"><label>نوع الشخصية</label><select id="kind"><option>إنسان</option><option>حيوان ناطق</option><option>مخلوق خيالي</option><option>روبوت</option><option>Stickman</option><option>شخصية هجينة</option></select></div>
-      <div class="field"><label>الدور أو الشخصية</label><input id="role" placeholder="مستكشف، معلم، شخصية كوميدية..."></div>
+      <div class="field"><label>الدور أو الشخصية</label><select id="role" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="explorer">مستكشف</option><option value="teacher">معلم</option><option value="hero">بطل</option><option value="comedic character">شخصية كوميدية</option><option value="friendly helper">مساعد ودود</option><option value="storyteller">راوي حكايات</option><option value="student">طالب</option><option value="scientist">عالم</option><option value="warrior">محارب</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="role_custom" class="custom" hidden placeholder="مستكشف، معلم، شخصية كوميدية..."></div>
     </div>
   </section>
 
@@ -83,15 +84,15 @@ small{color:var(--muted)}
     <h2>③ تثبيت ملامح الوجه</h2>
     <div class="grid">
       <div><label>شكل الوجه</label><select id="face"><option>بيضاوي</option><option>دائري</option><option>مربع</option><option>طويل</option><option>مثلث ناعم</option><option>كما في الصورة الأصلية</option></select></div>
-      <div><label>لون البشرة / السطح</label><input id="skin" placeholder="مثال: قمحي دافئ / فرو بني / معدن فضي"></div>
-      <div><label>العينان</label><input id="eyes" placeholder="الحجم والشكل واللون والمسافة بين العينين"></div>
-      <div><label>الحاجبان</label><input id="brows" placeholder="كثيفان، رفيعان، مقوسان..."></div>
-      <div><label>الأنف</label><input id="nose" placeholder="صغير، مستقيم، مستدير..."></div>
-      <div><label>الفم والشفاه</label><input id="mouth" placeholder="شكل الفم وحجم الشفاه والابتسامة المعتادة"></div>
-      <div><label>الشعر / الفرو / غطاء الرأس</label><input id="hair" placeholder="اللون، الطول، التسريحة، الملمس"></div>
-      <div><label>علامات مميزة ثابتة</label><input id="marks" placeholder="شامة، نمش، ندبة صغيرة، خصلة مميزة..."></div>
+      <div><label>لون البشرة / السطح</label><select id="skin" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="warm wheat-tan skin">قمحي دافئ</option><option value="fair light skin">فاتح</option><option value="olive skin">زيتوني</option><option value="medium brown skin">بني متوسط</option><option value="deep brown skin">بني داكن</option><option value="soft rosy skin">وردي ناعم</option><option value="brown fur">فرو بني</option><option value="golden fur">فرو ذهبي</option><option value="white fur">فرو أبيض</option><option value="gray fur">فرو رمادي</option><option value="brushed silver metal">معدن فضي</option><option value="matte plastic surface">بلاستيك مطفي</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="skin_custom" class="custom" hidden placeholder="مثال: قمحي دافئ / فرو بني / معدن فضي"></div>
+      <div><label>العينان</label><select id="eyes" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="large round brown eyes, evenly spaced">كبيرتان مستديرتان بنيتان</option><option value="almond-shaped dark brown eyes">لوزيتان بنيتان داكنتان</option><option value="large green eyes">كبيرتان خضراوان</option><option value="blue eyes">زرقاوان</option><option value="hazel eyes">عسليتان</option><option value="simple black dot eyes">نقطتان سوداوان</option><option value="softly glowing eyes">مضيئتان</option><option value="small narrow eyes">صغيرتان ضيقتان</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="eyes_custom" class="custom" hidden placeholder="الحجم والشكل واللون والمسافة بين العينين"></div>
+      <div><label>الحاجبان</label><select id="brows" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="thick brows">كثيفان</option><option value="thin brows">رفيعان</option><option value="softly arched brows">مقوسان</option><option value="straight brows">مستقيمان</option><option value="natural soft brows">طبيعيان ناعمان</option><option value="no eyebrows">بلا حاجبين</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="brows_custom" class="custom" hidden placeholder="كثيفان، رفيعان، مقوسان..."></div>
+      <div><label>الأنف</label><select id="nose" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="small button nose">صغير مستدير</option><option value="straight nose">مستقيم</option><option value="rounded nose">مستدير</option><option value="aquiline nose">معقوف</option><option value="wide nose">عريض</option><option value="minimal simplified nose">مبسط جداً</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="nose_custom" class="custom" hidden placeholder="صغير، مستقيم، مستدير..."></div>
+      <div><label>الفم والشفاه</label><select id="mouth" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="small natural smile, medium lips">ابتسامة صغيرة طبيعية</option><option value="wide friendly smile">ابتسامة واسعة</option><option value="full lips">شفاه ممتلئة</option><option value="thin lips">شفاه رفيعة</option><option value="gentle neutral mouth">هادئ محايد</option><option value="open smile showing teeth">ابتسامة مع أسنان</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="mouth_custom" class="custom" hidden placeholder="شكل الفم وحجم الشفاه والابتسامة المعتادة"></div>
+      <div><label>الشعر / الفرو / غطاء الرأس</label><select id="hair" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="short black hair">أسود قصير</option><option value="long black hair">أسود طويل</option><option value="brown curly hair">بني مجعد</option><option value="short brown hair">بني قصير</option><option value="blond hair">أشقر</option><option value="red hair">أحمر</option><option value="hijab / headscarf">حجاب / غطاء رأس</option><option value="ghutra / keffiyeh">غترة / شماغ</option><option value="hat covering hair">قبعة</option><option value="bald">أصلع</option><option value="natural fur / feathers">فرو / ريش</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="hair_custom" class="custom" hidden placeholder="اللون، الطول، التسريحة، الملمس"></div>
+      <div><label>علامات مميزة ثابتة</label><select id="marks" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="no distinctive marks">لا توجد</option><option value="small mole on the cheek">شامة على الخد</option><option value="freckles across nose and cheeks">نمش</option><option value="small scar">ندبة صغيرة</option><option value="dimples">غمّازتان</option><option value="small birthmark">وحمة</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="marks_custom" class="custom" hidden placeholder="شامة، نمش، ندبة صغيرة، خصلة مميزة..."></div>
     </div>
-    <div style="margin-top:10px"><label>وصف الوجه الدقيق كما يجب أن يبقى دائماً</label><textarea id="faceNotes" placeholder="اكتب التفاصيل التي لا يجوز تغييرها، أو اتركها فارغة إذا كانت واضحة في الصورة المرجعية."></textarea></div>
+    <div style="margin-top:10px"><label>وصف الوجه الدقيق كما يجب أن يبقى دائماً (اختياري)</label><textarea id="faceNotes" placeholder="اكتب التفاصيل التي لا يجوز تغييرها، أو اتركها فارغة إذا كانت واضحة في الصورة المرجعية."></textarea></div>
   </section>
 
   <section class="card">
@@ -99,16 +100,33 @@ small{color:var(--muted)}
     <div class="grid">
       <div><label>بنية الجسم</label><select id="body"><option>طفولي متناسق</option><option>نحيف</option><option>متوسط</option><option>رياضي</option><option>ممتلئ</option><option>قصير / طويل بشكل مميز</option><option>حسب الصورة الأصلية</option><option>غير بشري / لا ينطبق</option></select></div>
       <div><label>النسب التشريحية</label><select id="proportion"><option>نسب طبيعية مبسطة</option><option>رأس أكبر قليلاً بأسلوب كرتوني</option><option>نسب واقعية</option><option>نسب كرتونية مبالغ بها</option><option>Stickman / هندسي</option></select></div>
-      <div><label>الملابس الأساسية</label><input id="clothes" placeholder="نوع الملابس والطبقات والتفاصيل"></div>
-      <div><label>ألوان الملابس</label><input id="clothesColor" placeholder="الألوان الأساسية والثانوية"></div>
-      <div><label>الأحذية</label><input id="shoes" placeholder="الوصف واللون"></div>
-      <div><label>الإكسسوارات الثابتة</label><input id="accessories" placeholder="قبعة، نظارات، حقيبة، ساعة..."></div>
+      <div><label>الملابس الأساسية</label><select id="clothes" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="traditional thobe">ثوب تقليدي</option><option value="casual t-shirt and jeans">تيشيرت وجينز</option><option value="hoodie">هودي</option><option value="school uniform">زي مدرسي</option><option value="explorer outfit with vest">ملابس استكشاف</option><option value="formal suit">بدلة رسمية</option><option value="sportswear">ملابس رياضية</option><option value="kaftan / abaya">عباءة / قفطان</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="clothes_custom" class="custom" hidden placeholder="نوع الملابس والطبقات والتفاصيل"></div>
+      <div><label>ألوان الملابس</label><select id="clothesColor" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="blue and white">أزرق وأبيض</option><option value="red and black">أحمر وأسود</option><option value="green and brown">أخضر وبني</option><option value="yellow and orange">أصفر وبرتقالي</option><option value="black and gold">أسود وذهبي</option><option value="soft pastel colors">ألوان باستيل</option><option value="neutral earth tones">ألوان ترابية</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="clothesColor_custom" class="custom" hidden placeholder="الألوان الأساسية والثانوية"></div>
+      <div><label>الأحذية</label><select id="shoes" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="sneakers">حذاء رياضي</option><option value="boots">جزمة</option><option value="sandals">صندل</option><option value="formal shoes">حذاء رسمي</option><option value="barefoot">حافي القدمين</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="shoes_custom" class="custom" hidden placeholder="الوصف واللون"></div>
+      <div><label>الإكسسوارات الثابتة</label><select id="accessories" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="no accessories">لا يوجد</option><option value="glasses">نظارة</option><option value="hat">قبعة</option><option value="backpack">حقيبة ظهر</option><option value="wristwatch">ساعة</option><option value="scarf">وشاح</option><option value="necklace">قلادة</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="accessories_custom" class="custom" hidden placeholder="قبعة، نظارات، حقيبة، ساعة..."></div>
     </div>
-    <div style="margin-top:10px"><label>لوحة الألوان المعتمدة (اختياري)</label><input id="palette" placeholder="مثال: أزرق سماوي، أصفر دافئ، أبيض، بني"></div>
+    <div style="margin-top:10px"><label>لوحة الألوان المعتمدة (اختياري)</label><select id="palette" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="sky blue, warm yellow, white">أزرق سماوي وأصفر دافئ وأبيض</option><option value="earth tones: brown, beige, olive">ألوان ترابية</option><option value="vivid primary colors">ألوان أساسية زاهية</option><option value="soft pastels">باستيل هادئ</option><option value="dark tones with gold accents">داكن وذهبي</option><option value="green and white">أخضر وأبيض</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="palette_custom" class="custom" hidden placeholder="مثال: أزرق سماوي، أصفر دافئ، أبيض، بني"></div>
+  </section>
+
+
+  <section class="card">
+    <h2>⑤ تثبيت الشخصية والملامح والواقعية والهوية</h2>
+    <div class="note">كل الخيارات هنا اختيارية وجاهزة بضغطة واحدة. الخيارات المهمة محددة مسبقاً، ويمكنك إلغاءها أو استخدام زر «تعبئة تلقائية» في الأسفل.</div>
+    <div class="grid" style="margin-top:12px"><div><label>قوة تثبيت الهوية</label><select id="lockStrength"><option value="standard">عادي</option><option value="strong" selected>قوي</option><option value="absolute">صارم (قفل مطلق)</option></select></div><div><label>درجة واقعية الملامح</label><select id="faceRealLvl"><option value="match the chosen art style">حسب الأسلوب الفني</option><option value="lightly realistic, natural" selected>واقعي مبسط</option><option value="highly realistic">واقعي عالٍ</option><option value="photorealistic">واقعية فوتوغرافية</option></select></div><div><label>درجة واقعية الخامات</label><select id="matRealLvl"><option value="match the chosen art style">حسب الأسلوب الفني</option><option value="lightly realistic, natural" selected>واقعي مبسط</option><option value="highly realistic">واقعي عالٍ</option><option value="photorealistic">واقعية فوتوغرافية</option></select></div></div>
+    <h3>تثبيت الشخصية</h3>
+<div class="choices" id="lockChar"><label class="choice"><input type="checkbox" value="the exact same character in every image, never a different person" checked><span>نفس الشخصية في كل صورة</span></label><label class="choice"><input type="checkbox" value="consistent personality, attitude and expression style" checked><span>ثبات الشخصية والطابع</span></label><label class="choice"><input type="checkbox" value="same species/type and same apparent age" checked><span>ثبات النوع والعمر</span></label><label class="choice"><input type="checkbox" value="consistent head-to-body ratio and height" checked><span>ثبات نسبة الرأس للجسم</span></label><label class="choice"><input type="checkbox" value="same signature outfit and accessories in every view" checked><span>ثبات الزي المميز</span></label><label class="choice"><input type="checkbox" value="identity independent of pose, camera angle and background" checked><span>ثبات الشخصية مع تغيّر الوضعية</span></label></div>
+    <h3>تثبيت الملامح</h3>
+<div class="choices" id="lockFeat"><label class="choice"><input type="checkbox" value="identical face shape, jawline and chin" checked><span>شكل الوجه والفك والذقن</span></label><label class="choice"><input type="checkbox" value="identical eye shape, iris color and inter-eye distance" checked><span>شكل العينين ولونهما ومسافتهما</span></label><label class="choice"><input type="checkbox" value="identical eyebrow shape, thickness and position" checked><span>الحاجبان</span></label><label class="choice"><input type="checkbox" value="identical nose shape and size" checked><span>الأنف</span></label><label class="choice"><input type="checkbox" value="identical mouth and lip shape" checked><span>الفم والشفاه</span></label><label class="choice"><input type="checkbox" value="identical ear shape and placement"><span>الأذنان</span></label><label class="choice"><input type="checkbox" value="identical cheekbone structure"><span>عظام الوجنتين</span></label><label class="choice"><input type="checkbox" value="identical hairline and part" checked><span>خط الشعر</span></label><label class="choice"><input type="checkbox" value="identical facial proportions (eye-nose-mouth spacing)" checked><span>نسب الوجه</span></label><label class="choice"><input type="checkbox" value="natural subtle facial asymmetry kept identical in all views"><span>تناظر طبيعي غير مثالي</span></label></div>
+    <h3>واقعية الملامح</h3>
+<div class="choices" id="realFace"><label class="choice"><input type="checkbox" value="natural skin texture with subtle pores" checked><span>مسام وملمس بشرة طبيعي</span></label><label class="choice"><input type="checkbox" value="lifelike eyes with natural catchlights and iris detail" checked><span>عينان حيّتان بلمعة</span></label><label class="choice"><input type="checkbox" value="individual eyelash and eyebrow hairs" checked><span>رموش وحواجب بخيوط شعر</span></label><label class="choice"><input type="checkbox" value="natural lip texture and color variation" checked><span>شفاه بملمس طبيعي</span></label><label class="choice"><input type="checkbox" value="natural, realistic teeth"><span>أسنان طبيعية</span></label><label class="choice"><input type="checkbox" value="natural skin tone variation, subtle blush" checked><span>تدرجات لون بشرة طبيعية</span></label><label class="choice"><input type="checkbox" value="no beauty filter, no heavy retouching" checked><span>بدون فلتر تجميل</span></label><label class="choice"><input type="checkbox" value="natural lifelike facial expressions" checked><span>تعبيرات طبيعية حية</span></label></div>
+    <h3>واقعية الخامات</h3>
+<div class="choices" id="realMat"><label class="choice"><input type="checkbox" value="realistic fabric weave, seams and natural folds" checked><span>نسيج وثنيات قماش حقيقية</span></label><label class="choice"><input type="checkbox" value="realistic individual hair strands with natural highlights" checked><span>خصل شعر حقيقية</span></label><label class="choice"><input type="checkbox" value="physically based materials, natural specular highlights and soft realistic shadows" checked><span>انعكاسات وظلال فيزيائية</span></label><label class="choice"><input type="checkbox" value="subtle subsurface scattering on skin" checked><span>تشتت تحت سطحي للبشرة</span></label><label class="choice"><input type="checkbox" value="accurate leather, metal and plastic material behavior"><span>جلد ومعدن وخامات دقيقة</span></label><label class="choice"><input type="checkbox" value="fine surface detail and slight natural wear"><span>تآكل وتفاصيل دقيقة</span></label><label class="choice"><input type="checkbox" value="natural, non-oversaturated colors" checked><span>ألوان طبيعية غير مشبعة</span></label></div>
+    <h3>تثبيت الهوية</h3>
+<div class="choices" id="lockId"><label class="choice"><input type="checkbox" value="the attached reference image is the highest-priority identity source" checked><span>الصورة المرجعية هي المصدر الأعلى</span></label><label class="choice"><input type="checkbox" value="same identity under any lighting, skin tone unchanged" checked><span>نفس الهوية مع تغيّر الإضاءة</span></label><label class="choice"><input type="checkbox" value="same identity across all expressions" checked><span>نفس الهوية مع تغيّر التعبير</span></label><label class="choice"><input type="checkbox" value="same identity from every camera angle" checked><span>نفس الهوية من كل زاوية</span></label><label class="choice"><input type="checkbox" value="never blend with other faces or generic faces" checked><span>منع دمج الوجوه</span></label><label class="choice"><input type="checkbox" value="treat this character as a fixed identity token reused identically in every generation" checked><span>رمز هوية ثابت</span></label></div>
   </section>
 
   <section class="card">
-    <h2>⑤ أوراق المراجع المطلوبة</h2>
+    <h2>⑥ أوراق المراجع المطلوبة</h2>
     <div class="note">هذه المراجع تساعد أدوات التصميم على فهم الشخصية من أكثر من اتجاه. اختر ما تريد إدراجه في طلب إنشاء المرجع.</div>
     <div class="choices" id="sheets" style="margin-top:12px">
       <label class="choice"><input type="checkbox" value="front full-body view"><span>أمامية كاملة</span></label>
@@ -136,7 +154,7 @@ small{color:var(--muted)}
   </section>
 
   <section class="card">
-    <h2>⑥ قواعد ثبات الهوية ومنع التشوه</h2>
+    <h2>⑦ قواعد ثبات الهوية ومنع التشوه</h2>
     <div class="choices" id="locks">
       <label class="choice"><input type="checkbox" value="Preserve exact facial identity and facial proportions" checked><span>قفل ملامح الوجه</span></label>
       <label class="choice"><input type="checkbox" value="Preserve exact hairstyle, hairline and hair color" checked><span>قفل الشعر</span></label>
@@ -147,27 +165,28 @@ small{color:var(--muted)}
       <label class="choice"><input type="checkbox" value="Keep all distinctive marks in the same position" checked><span>قفل العلامات المميزة</span></label>
       <label class="choice"><input type="checkbox" value="Maintain consistent materials, rendering style and color palette" checked><span>قفل الأسلوب والخامات</span></label>
     </div>
-    <h3>الأشياء الممنوع تغييرها</h3>
+    <h3>الأشياء الممنوع تغييرها (اختياري)</h3><div class="choices" id="neverChips"><label class="choice"><input type="checkbox" value="do not change eye color"><span>لا تغيّر لون العينين</span></label><label class="choice"><input type="checkbox" value="do not add a hat or headwear"><span>لا تضف قبعة</span></label><label class="choice"><input type="checkbox" value="do not change apparent age"><span>لا تغيّر العمر</span></label><label class="choice"><input type="checkbox" value="do not change hairstyle"><span>لا تغيّر تسريحة الشعر</span></label><label class="choice"><input type="checkbox" value="do not change skin tone"><span>لا تغيّر لون البشرة</span></label><label class="choice"><input type="checkbox" value="do not change outfit"><span>لا تغيّر الملابس</span></label><label class="choice"><input type="checkbox" value="do not change facial proportions"><span>لا تغيّر نسب الوجه</span></label><label class="choice"><input type="checkbox" value="do not change species or character type"><span>لا تغيّر النوع</span></label></div><label style="margin-top:10px">إضافة يدوية (اختياري)</label>
     <textarea id="neverChange" placeholder="مثال: لا تغيّر لون العينين، لا تضف قبعة، لا تغيّر شكل الأسنان، لا تجعل الشخصية أكبر عمراً..."></textarea>
     <h3>الأخطاء التي يجب تجنبها</h3>
-    <div class="choices" id="negative">
-      <label class="choice"><input type="checkbox" value="different face, identity drift"><span>تغيّر الوجه والهوية</span></label>
+    <div class="choices" id="negative"><label class="choice"><input type="checkbox" value="uncanny valley, doll-like face, unreal artificial look" checked><span>مظهر غير واقعي / دمية</span></label><label class="choice"><input type="checkbox" value="over-smoothed airbrushed skin, beauty-filter look" checked><span>تنعيم مفرط للبشرة</span></label><label class="choice"><input type="checkbox" value="face morphing between views, different face per angle" checked><span>اختلاف الوجه بين الزوايا</span></label><label class="choice"><input type="checkbox" value="perfectly symmetrical artificial face"><span>تناظر مثالي مصطنع</span></label><label class="choice"><input type="checkbox" value="dead flat eyes without catchlights"><span>عينان ميتتان بلا لمعة</span></label>
+      <label class="choice"><input type="checkbox" value="different face, identity drift" checked><span>تغيّر الوجه والهوية</span></label>
       <label class="choice"><input type="checkbox" value="asymmetrical or malformed eyes"><span>تشوه العينين</span></label>
       <label class="choice"><input type="checkbox" value="deformed hands, extra fingers, missing fingers"><span>تشوه اليدين والأصابع</span></label>
       <label class="choice"><input type="checkbox" value="distorted anatomy, inconsistent proportions"><span>تشوه الجسم والنسب</span></label>
       <label class="choice"><input type="checkbox" value="blur, low resolution, pixelation, noise"><span>الضبابية وضعف الدقة</span></label>
-      <label class="choice"><input type="checkbox" value="plastic skin, waxy materials, over-sharpening"><span>خامات بلاستيكية مصطنعة</span></label>
+      <label class="choice"><input type="checkbox" value="plastic skin, waxy materials, over-sharpening" checked><span>خامات بلاستيكية مصطنعة</span></label>
       <label class="choice"><input type="checkbox" value="unwanted text, watermark, logo"><span>كتابة وشعارات غير مطلوبة</span></label>
       <label class="choice"><input type="checkbox" value="duplicate character, extra limbs"><span>تكرار الشخصية أو أطراف زائدة</span></label>
     </div>
   </section>
 
   <section class="card">
-    <h2>⑦ ملاحظات نهائية وملف الهوية</h2>
-    <div><label>وصف إضافي أو تعليمات خاصة</label><textarea id="extra" placeholder="أي تفاصيل تريد الحفاظ عليها أو تحسينها دون تغيير هوية الشخصية."></textarea></div>
+    <h2>⑧ ملاحظات نهائية وملف الهوية</h2>
+    <div><label>وصف إضافي أو تعليمات خاصة (اختياري)</label><textarea id="extra" placeholder="أي تفاصيل تريد الحفاظ عليها أو تحسينها دون تغيير هوية الشخصية."></textarea></div>
     <div class="progress"><i id="bar"></i></div>
     <small id="status">أكمل الحقول الأساسية ثم أنشئ ملف الهوية.</small>
     <div class="actions" style="margin-top:14px">
+      <button class="success" id="auto" type="button">✨ تعبئة تلقائية</button>
       <button class="primary" id="make">إنشاء ملف هوية الشخصية</button>
       <button class="secondary" id="copy">نسخ وصف التوليد</button>
       <button class="success" id="json">تصدير ملف JSON</button>
@@ -177,7 +196,7 @@ small{color:var(--muted)}
   </section>
 
   <section class="card">
-    <h2>⑧ وصف التوليد الجاهز</h2>
+    <h2>⑨ وصف التوليد الجاهز</h2>
     <div class="hint">انسخ هذا الوصف إلى أداة إنشاء الصور أو أوراق الشخصيات التي تستخدمها. أرفق الصورة المرجعية الأصلية معها.</div>
     <div id="prompt" class="output">سيظهر وصف التوليد هنا بعد الضغط على «إنشاء ملف هوية الشخصية».</div>
     <h3>ملخص ملف الهوية</h3>
@@ -192,18 +211,20 @@ $('refImage').addEventListener('change',e=>{
  const f=e.target.files[0]; if(!f)return;
  const r=new FileReader();r.onload=()=>{imageData=r.result;$('preview').src=imageData;$('preview').style.display='block';};r.readAsDataURL(f);
 });
-function val(id){return $(id).value.trim()}
+function val(id){const v=$(id).value.trim();if(v==='__custom'){const c=$(id+'_custom');return c?c.value.trim():''}return v}
+document.addEventListener('change',e=>{if(e.target.classList.contains('combo')){const c=$(e.target.id+'_custom');c.hidden=e.target.value!=='__custom';if(!c.hidden)c.focus()}});
+document.querySelectorAll('.choices').forEach(g=>{const b=document.createElement('div');b.className='mini';b.innerHTML='<button type="button">تحديد الكل</button><button type="button">مسح</button>';const [a,c]=b.querySelectorAll('button');a.onclick=()=>g.querySelectorAll('input').forEach(x=>x.checked=true);c.onclick=()=>g.querySelectorAll('input').forEach(x=>x.checked=false);g.parentNode.insertBefore(b,g)});
 function checked(id){return [...$(id).querySelectorAll('input:checked')].map(x=>x.value)}
 function field(label,id){return `${label}: ${val(id)||'غير محدد — اتبع الصورة المرجعية الأصلية'}`}
 function build(){
  const name=val('name')||'Unnamed Character';
  const data={
-  schema:"noor-character-identity-v1",
+  schema:"noor-character-identity-v2",
   character:{name,age:val('age'),kind:val('kind'),role:val('role'),referenceImageDataUrl:imageData,
    art:{style:val('style'),realism:val('realism'),detail:val('detail'),lighting:val('light'),mood:checked('mood')},
    face:{shape:val('face'),skin:val('skin'),eyes:val('eyes'),brows:val('brows'),nose:val('nose'),mouth:val('mouth'),hair:val('hair'),distinctiveMarks:val('marks'),notes:val('faceNotes')},
    bodyAndWardrobe:{body:val('body'),proportions:val('proportion'),clothes:val('clothes'),clothesColors:val('clothesColor'),shoes:val('shoes'),accessories:val('accessories'),palette:val('palette')},
-   referenceSheets:checked('sheets'),expressions:checked('expressions'),identityLocks:checked('locks'),neverChange:val('neverChange'),negativePrompt:checked('negative'),extra:val('extra')
+   referenceSheets:checked('sheets'),expressions:checked('expressions'),identityLocks:checked('locks'),neverChange:[...checked('neverChips'),val('neverChange')].filter(Boolean).join('; '),stabilization:{strength:val('lockStrength'),faceRealism:val('faceRealLvl'),materialRealism:val('matRealLvl'),characterLock:checked('lockChar'),featureLock:checked('lockFeat'),faceRealismTraits:checked('realFace'),materialRealismTraits:checked('realMat'),identityLock:checked('lockId')},negativePrompt:checked('negative'),extra:val('extra')
   },
   usageNote:"Use the attached reference image as the primary source of truth. Preserve identity across all views. This profile is a specification, not a guarantee of model consistency."
  };
@@ -219,6 +240,11 @@ function build(){
  `MOOD: ${c.art.mood.join(', ')||'consistent with reference'}.`,
  `REFERENCE VIEWS: ${c.referenceSheets.join('; ')||'front full-body, three-quarter, profile, back, close-up face'}.`,
  `EXPRESSIONS: ${c.expressions.join(', ')||'neutral, happy, surprised, curious'}.`,
+ `CHARACTER LOCK (${c.stabilization.strength}): ${c.stabilization.characterLock.join('; ')||'same character in every image'}.`,
+ `FACIAL FEATURE LOCK: ${c.stabilization.featureLock.join('; ')||'preserve all facial features exactly as in the reference'}.`,
+ `FACE REALISM (level: ${c.stabilization.faceRealism}; applied within the art style "${c.art.style}"): ${c.stabilization.faceRealismTraits.join('; ')||'natural, believable face'}. The character must look like a real, believable subject of this style, not a flat or artificial render.`,
+ `MATERIAL REALISM (level: ${c.stabilization.materialRealism}): ${c.stabilization.materialRealismTraits.join('; ')||'believable materials'}.`,
+ `IDENTITY LOCK: ${c.stabilization.identityLock.join('; ')||'preserve identity from the reference'}.${c.stabilization.strength==='absolute'?' Treat the reference as an exact identity template: any deviation in the face is an error.':''}`,
  `IDENTITY LOCKS: ${c.identityLocks.join('; ')}.`,
  `NEVER CHANGE: ${c.neverChange||'Do not alter any defining feature visible in the reference.'}.`,
  `QUALITY: crisp clean silhouette, sharp facial features, coherent anatomy, polished materials, controlled highlights, balanced soft lighting, clear readable details, high-resolution professional character design, consistent scale and proportions.`,
@@ -230,6 +256,15 @@ function build(){
  return {data,prompt};
 }
 function download(name,content,type){const a=document.createElement('a');const u=URL.createObjectURL(new Blob([content],{type}));a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)}
+$('auto').onclick=()=>{
+ const st=val('style');const real=/Photorealistic/.test(st)?3:/Semi-realistic|Stylized realistic/.test(st)?2:1;
+ $('faceRealLvl').selectedIndex=real;$('matRealLvl').selectedIndex=real;$('lockStrength').selectedIndex=1;
+ ['lockChar','lockFeat','realFace','realMat','lockId','locks','sheets','expressions','negative'].forEach(g=>{
+  const el=$(g);const defs=[...el.querySelectorAll('input')];
+  if(g==='sheets'||g==='expressions'){defs.forEach(x=>x.checked=true)}else if(g==='locks'||g==='negative'){defs.forEach(x=>x.checked=true)}else{defs.forEach(x=>x.checked=x.defaultChecked)}
+ });
+ $('status').textContent='تمت التعبئة التلقائية: تثبيت قوي + واقعية حسب الأسلوب + كل المراجع والتعبيرات. الحقول البصرية تتبع الصورة المرجعية.';
+};
 $('make').onclick=()=>{
  const {data,prompt}=build();$('prompt').textContent=prompt;
  $('summary').textContent=JSON.stringify({...data,character:{...data.character,referenceImageDataUrl:imageData?'[image embedded in JSON export]':null}},null,2);
@@ -239,7 +274,7 @@ $('make').onclick=()=>{
 $('copy').onclick=async()=>{if(!window.currentProfile)$('make').click();try{await navigator.clipboard.writeText($('prompt').textContent);$('status').textContent='تم نسخ وصف التوليد.';}catch(e){$('status').textContent='تعذر النسخ التلقائي؛ حدد النص وانسخه.'}};
 $('json').onclick=()=>{if(!window.currentProfile)$('make').click();download((val('name')||'character').replace(/[^\w\u0600-\u06FF-]/g,'_')+'_identity.json',JSON.stringify(window.currentProfile.data,null,2),'application/json')};
 $('txt').onclick=()=>{if(!window.currentProfile)$('make').click();download((val('name')||'character')+'_identity_prompt.txt',window.currentProfile.prompt,'text/plain;charset=utf-8')};
-$('reset').onclick=()=>{if(!confirm('هل تريد مسح جميع الخيارات والصورة؟'))return;document.querySelectorAll('input[type=text],input:not([type]),textarea').forEach(x=>x.value='');document.querySelectorAll('select').forEach(x=>x.selectedIndex=0);document.querySelectorAll('input[type=checkbox]').forEach(x=>x.checked=x.defaultChecked);$('refImage').value='';imageData=null;$('preview').style.display='none';$('prompt').textContent='سيظهر وصف التوليد هنا.';$('summary').textContent='لم يتم إنشاء الملف بعد.';$('bar').style.width='0';$('status').textContent='تمت إعادة الضبط.';window.currentProfile=null};
+$('reset').onclick=()=>{if(!confirm('هل تريد مسح جميع الخيارات والصورة؟'))return;document.querySelectorAll('input[type=text],input:not([type]),textarea').forEach(x=>x.value='');document.querySelectorAll('select').forEach(x=>{const d=[...x.options].findIndex(o=>o.defaultSelected);x.selectedIndex=d<0?0:d});document.querySelectorAll('input[type=checkbox]').forEach(x=>x.checked=x.defaultChecked);document.querySelectorAll('.custom').forEach(x=>x.hidden=true);$('refImage').value='';imageData=null;$('preview').style.display='none';$('prompt').textContent='سيظهر وصف التوليد هنا.';$('summary').textContent='لم يتم إنشاء الملف بعد.';$('bar').style.width='0';$('status').textContent='تمت إعادة الضبط.';window.currentProfile=null};
 if(window.Telegram?.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
 </script>
 </body></html>
