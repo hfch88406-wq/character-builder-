@@ -56,6 +56,7 @@ small{color:var(--muted)}
       <div class="field"><label>اسم الشخصية</label><input id="name" placeholder="مثال: نور"></div>
       <div class="field"><label>العمر الظاهري</label><select id="age"><option>طفل صغير</option><option>طفل</option><option>يافع</option><option>شاب</option><option>بالغ</option><option>كبير في السن</option><option>غير محدد / خيالي</option></select></div>
       <div class="field"><label>نوع الشخصية</label><select id="kind"><option>إنسان</option><option>حيوان ناطق</option><option>مخلوق خيالي</option><option>روبوت</option><option>Stickman</option><option>شخصية هجينة</option></select></div>
+      <div class="field"><label>نوع الصورة المرجعية</label><select id="refType"><option value="photo">📷 صورة حقيقية (فوتوغرافية)</option><option value="art">🎨 رسم / كرتون / ثلاثي الأبعاد</option></select><div class="hint">اختر «حقيقية» ليُولَّد الناتج كصورة فوتوغرافية بنفس الشخص دون تحويله إلى رسم.</div></div>
       <div class="field"><label>الدور أو الشخصية</label><select id="role" class="combo"><option value="">🔄 حسب الصورة المرجعية (تلقائي)</option><option value="explorer">مستكشف</option><option value="teacher">معلم</option><option value="hero">بطل</option><option value="comedic character">شخصية كوميدية</option><option value="friendly helper">مساعد ودود</option><option value="storyteller">راوي حكايات</option><option value="student">طالب</option><option value="scientist">عالم</option><option value="warrior">محارب</option><option value="__custom">✏️ مخصص (اكتب بنفسك)</option></select><input id="role_custom" class="custom" hidden placeholder="مستكشف، معلم، شخصية كوميدية..."></div>
     </div>
   </section>
@@ -217,20 +218,20 @@ document.querySelectorAll('.choices').forEach(g=>{const b=document.createElement
 function checked(id){return [...$(id).querySelectorAll('input:checked')].map(x=>x.value)}
 function field(label,id){return `${label}: ${val(id)||'غير محدد — اتبع الصورة المرجعية الأصلية'}`}
 function build(){
- const name=val('name')||'Unnamed Character';
+ const name=val('name')||'Unnamed Character';const real=val('refType')==='photo';
  const data={
   schema:"noor-character-identity-v2",
   character:{name,age:val('age'),kind:val('kind'),role:val('role'),referenceImageDataUrl:imageData,
-   art:{style:val('style'),realism:val('realism'),detail:val('detail'),lighting:val('light'),mood:checked('mood')},
+   art:{style:real?'Photorealistic human photograph (real person, not an illustration)':val('style'),realism:real?'photorealistic':val('realism'),detail:real?'true-to-life skin pores, hair strands and fabric detail':val('detail'),lighting:val('light'),mood:checked('mood')},
    face:{shape:val('face'),skin:val('skin'),eyes:val('eyes'),brows:val('brows'),nose:val('nose'),mouth:val('mouth'),hair:val('hair'),distinctiveMarks:val('marks'),notes:val('faceNotes')},
    bodyAndWardrobe:{body:val('body'),proportions:val('proportion'),clothes:val('clothes'),clothesColors:val('clothesColor'),shoes:val('shoes'),accessories:val('accessories'),palette:val('palette')},
-   referenceSheets:checked('sheets'),expressions:checked('expressions'),identityLocks:checked('locks'),neverChange:[...checked('neverChips'),val('neverChange')].filter(Boolean).join('; '),stabilization:{strength:val('lockStrength'),faceRealism:val('faceRealLvl'),materialRealism:val('matRealLvl'),characterLock:checked('lockChar'),featureLock:checked('lockFeat'),faceRealismTraits:checked('realFace'),materialRealismTraits:checked('realMat'),identityLock:checked('lockId')},negativePrompt:checked('negative'),extra:val('extra')
+   referenceSheets:checked('sheets'),expressions:checked('expressions'),identityLocks:checked('locks'),neverChange:[...checked('neverChips'),val('neverChange')].filter(Boolean).join('; '),stabilization:{strength:val('lockStrength'),faceRealism:real?'photorealistic':val('faceRealLvl'),materialRealism:real?'photorealistic':val('matRealLvl'),characterLock:checked('lockChar'),featureLock:checked('lockFeat'),faceRealismTraits:checked('realFace'),materialRealismTraits:checked('realMat'),identityLock:checked('lockId')},negativePrompt:checked('negative'),extra:val('extra')
   },
   usageNote:"Use the attached reference image as the primary source of truth. Preserve identity across all views. This profile is a specification, not a guarantee of model consistency."
  };
  const c=data.character;
  const prompt=[
- `Create a professional character identity reference sheet for "${name}".`,
+ real?`Generate photorealistic photographs of the same real person from the attached reference photo ("${name}"). The result must look like a genuine photograph of this exact person, not a drawing, 3D render or stylized character.`:`Create a professional character identity reference sheet for "${name}".`,
  `PRIMARY REFERENCE: use the attached original character image as the highest-priority source. Preserve the recognizable identity; do not redesign or reinterpret it.`,
  `CHARACTER: ${c.kind}; apparent age: ${c.age}; role: ${c.role||'not specified'}.`,
  `ART DIRECTION: ${c.art.style}; ${c.art.realism}; ${c.art.detail}; ${c.art.lighting}.`,
@@ -247,9 +248,9 @@ function build(){
  `IDENTITY LOCK: ${c.stabilization.identityLock.join('; ')||'preserve identity from the reference'}.${c.stabilization.strength==='absolute'?' Treat the reference as an exact identity template: any deviation in the face is an error.':''}`,
  `IDENTITY LOCKS: ${c.identityLocks.join('; ')}.`,
  `NEVER CHANGE: ${c.neverChange||'Do not alter any defining feature visible in the reference.'}.`,
- `QUALITY: crisp clean silhouette, sharp facial features, coherent anatomy, polished materials, controlled highlights, balanced soft lighting, clear readable details, high-resolution professional character design, consistent scale and proportions.`,
+ real?`QUALITY: real photograph shot on a full-frame camera, 85mm lens, natural skin texture with visible pores and fine hairs, realistic lighting and soft natural shadows, true-to-life colors, sharp focus on the eyes, natural depth of field, high resolution. NOT a 3D render, NOT CGI, NOT an illustration, NOT a cartoon, NOT stylized.`:`QUALITY: crisp clean silhouette, sharp facial features, coherent anatomy, polished materials, controlled highlights, balanced soft lighting, clear readable details, high-resolution professional character design, consistent scale and proportions.`,
  `LAYOUT: clean neutral studio background, uncluttered separated views, full character visible with safe margins, no overlapping views, consistent scale, no labels covering the character.`,
- `NEGATIVE: ${c.negativePrompt.join(', ')||'blurry, low quality, identity drift, distorted anatomy, extra limbs, unwanted text, watermark'}.`,
+ `NEGATIVE: ${[...c.negativePrompt,...(real?['cartoon','3D render','CGI','illustration','anime','painting','stylized','doll-like','plastic skin','airbrushed']:[])].join(', ')||'blurry, low quality, identity drift, distorted anatomy, extra limbs, unwanted text, watermark'}.`,
  `ADDITIONAL: ${c.extra||'None'}.`,
  `IMPORTANT: one same character in every view; same face, eye spacing, hairstyle, body proportions, outfit, colors and accessories. Views are a model sheet, not multiple different character designs.`
  ].join('\n\n');
@@ -257,7 +258,7 @@ function build(){
 }
 function download(name,content,type){const a=document.createElement('a');const u=URL.createObjectURL(new Blob([content],{type}));a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)}
 $('auto').onclick=()=>{
- const st=val('style');const real=/Photorealistic/.test(st)?3:/Semi-realistic|Stylized realistic/.test(st)?2:1;
+ const st=val('style');const photo=val('refType')==='photo';const real=photo?3:/Photorealistic/.test(st)?3:/Semi-realistic|Stylized realistic/.test(st)?2:1;
  $('faceRealLvl').selectedIndex=real;$('matRealLvl').selectedIndex=real;$('lockStrength').selectedIndex=1;
  ['lockChar','lockFeat','realFace','realMat','lockId','locks','sheets','expressions','negative'].forEach(g=>{
   const el=$(g);const defs=[...el.querySelectorAll('input')];
